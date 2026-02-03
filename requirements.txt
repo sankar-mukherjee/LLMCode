@@ -1,0 +1,19 @@
+# Core ML libraries
+transformers==4.36.0
+peft==0.7.1
+datasets==2.16.0
+accelerate==0.25.0
+bitsandbytes==0.41.3  # 8-bit/4-bit quantization
+optimum==1.16.0       # ONNX optimization
+
+# UI
+streamlit==1.29.0
+streamlit-option-menu==0.3.6
+
+# Utilities
+sentencepiece==0.1.99
+pytube==15.0.0
+moviepy==1.0.3
+soundfile==0.12.1
+# monotonic-align
+deepmultilingualpunctuation

@@ -1,0 +1,27 @@
+{
+	"name": "ML Development Container",
+	"context": "..",
+	"dockerFile": "../Dockerfile",
+	"settings": {
+		"python.defaultInterpreterPath": "/usr/bin/python3"
+	},
+	"extensions": [
+		"ms-python.python",
+		"ms-python.isort",
+		"ms-python.vscode-pylance"
+	],
+	"runArgs": [
+		"--gpus", "all",
+		"--shm-size=2g"
+	],
+	"mounts": [
+		"source=${localWorkspaceFolder},target=/workspace,type=bind"
+	],
+	"remoteUser": "root",
+	"containerEnv": {
+		"HF_HOME": "/workspace/.cache/huggingface",
+		"TRANSFORMERS_CACHE": "/workspace/.cache/huggingface/transformers",
+		"HF_DATASETS_CACHE": "/workspace/.cache/huggingface/datasets",
+		"HUGGINGFACE_HUB_CACHE": "/workspace/.cache/huggingface/hub"
+	}
+}

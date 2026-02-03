@@ -1,0 +1,38 @@
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Hugging Face cache (models and datasets)
+.cache/
+
+# IDE
+.idea/
+*.swp
+*.swo
+.local/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Model outputs
+output/
+checkpoints/
+wandb/
+
+# Temporary files
+*.tmp
+*.bak
