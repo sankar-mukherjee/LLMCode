@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from simple_qunatization import PerTensorQuant, PerChannelQuant
+from src.quantization.quantization_basics.simple_quantization import PerTensorQuant, PerChannelQuant
 from quantlinear import QuantLinear
 
 

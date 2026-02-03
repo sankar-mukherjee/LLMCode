@@ -21,16 +21,16 @@ n_heads = 4
 n_layers = 4
 max_seq_len = 512
 
-# qunatization
+# quantization
 quant_per_channel = False
-num_bits = 4          # 4 = INT4, 8 = INT8
+num_bits = 8          # 4 = INT4, 8 = INT8
 qat_start_step = 200  # warmup
 
 # ---------------------------------------------------
 # Dataset
 # ---------------------------------------------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_PATH = os.path.join(BASE_DIR, "..", "..", "data", "input.txt")
+DATA_PATH = os.path.join(BASE_DIR, "..", "..", "..", "data", "input.txt")
 with open(DATA_PATH, "r", encoding="utf-8") as f:
     text = f.read()
 
@@ -84,9 +84,6 @@ if os.path.exists(ckpt_path):
     print(f"📦 Loading checkpoint from {ckpt_path}")
     ckpt = torch.load(ckpt_path, map_location=device)
 
-    model.load_state_dict(ckpt["model"])
-    optimizer.load_state_dict(ckpt["optimizer"])
-    start_step = ckpt["step"] + 1
     qat_enabled = ckpt["qat_enabled"]
 
     if qat_enabled:
@@ -97,6 +94,9 @@ if os.path.exists(ckpt_path):
                 print("✅ Quantized layer found")
                 break
 
+    model.load_state_dict(ckpt["model"])
+    optimizer.load_state_dict(ckpt["optimizer"])
+    start_step = ckpt["step"] + 1
 
 
 for step in range(start_step, max_iters):

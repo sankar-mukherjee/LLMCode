@@ -17,3 +17,4 @@ moviepy==1.0.3
 soundfile==0.12.1
 # monotonic-align
 deepmultilingualpunctuation
+scipy==1.11.4

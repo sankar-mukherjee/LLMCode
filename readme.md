@@ -15,6 +15,8 @@ My LLM learnings
     - QKNorm
     - RoPE (Rotary Positional Embeddings)
 - qunatization aware training (4bit, 8bit)
-    - per tensor qunatization
-    - per channel qunatization
+    - QAT
+    - quantization types
+        - per tensor qunatization
+        - per channel qunatization
 

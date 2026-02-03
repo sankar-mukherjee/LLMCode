@@ -1,5 +1,5 @@
 import torch.nn as nn
-from src.qunatization_basics.quantlinear import QuantLinear
+from src.quantization.quantization_basics.quantlinear import QuantLinear
 
 
 def replace_linear_with_quant(module, num_bits=4, per_channel=True):

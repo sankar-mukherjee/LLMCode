@@ -23,10 +23,10 @@ class PerTensorQuant:
 
     def fake_quant(self, w):
         max_val = w.abs().max()
-        scale = torch.clamp(max_val / self.qmax, min=self.eps)
+        self.scale = torch.clamp(max_val / self.qmax, min=self.eps)
 
-        w_q = torch.round(w / scale).clamp(self.qmin, self.qmax)
-        w_hat = w_q * scale
+        w_q = torch.round(w / self.scale).clamp(self.qmin, self.qmax)
+        w_hat = w_q * self.scale
 
         # Straight-Through Estimator
         return w + (w_hat - w).detach()
@@ -62,11 +62,11 @@ class PerChannelQuant:
     def fake_quant(self, w):
         reduce_dims = tuple(d for d in range(w.ndim) if d != self.dim)
         max_val = w.abs().amax(dim=reduce_dims)
-        scale = torch.clamp(max_val / self.qmax, min=self.eps)
+        self.scale = torch.clamp(max_val / self.qmax, min=self.eps)
 
         shape = [1] * w.ndim
         shape[self.dim] = -1
-        scale = scale.view(*shape)
+        scale = self.scale.view(*shape)
 
         w_q = torch.round(w / scale).clamp(self.qmin, self.qmax)
         w_hat = w_q * scale

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from src.qunatization_basics.simple_qunatization import PerChannelQuant, PerTensorQuant
+from src.quantization.quantization_basics.simple_quantization import PerChannelQuant, PerTensorQuant
 
 
 class QuantLinear(nn.Module):
@@ -18,4 +18,4 @@ class QuantLinear(nn.Module):
     def forward(self, x):
         w = self.quantizer.fake_quant(self.weight)
         return F.linear(x, w, self.bias)
-
+    
