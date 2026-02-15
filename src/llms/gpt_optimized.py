@@ -16,6 +16,19 @@ import torch.nn.functional as F
 
 
 # -------------------------
+# - SwiGLU FFN
+# - Tied embeddings
+# - RoPE (Rotary Positional Embeddings)
+# - bf16 / fp16 safe
+# - torch.compile compatible
+
+import math
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+
+# -------------------------
 # RMSNorm
 # -------------------------
 class RMSNorm(nn.Module):
@@ -32,16 +45,26 @@ class RMSNorm(nn.Module):
 # Rotary Embeddings (RoPE)
 # -------------------------
 def build_rope_cache(seq_len, head_dim, device, base=10000):
-    inv_freq = 1.0 / (base ** (torch.arange(0, head_dim, 2, device=device).float() / head_dim))
-    t = torch.arange(seq_len, device=device)
-    freqs = torch.einsum("i,j->ij", t, inv_freq)
-    emb = torch.cat((freqs, freqs), dim=-1)
-    return emb.cos(), emb.sin()
+    half_dim = head_dim // 2
+
+    inv_freq = base ** (-torch.arange(half_dim, device=device) / half_dim)
+    positions = torch.arange(seq_len, device=device)
+
+    freqs = positions[:, None] * inv_freq[None, :]
+    cos = freqs.cos()
+    sin = freqs.sin()
+
+    return cos, sin
 
 
 def apply_rope(x, cos, sin):
+    # x: (B, H, T, D)
     x1, x2 = x[..., ::2], x[..., 1::2]
-    return torch.cat([x1 * cos - x2 * sin, x1 * sin + x2 * cos], dim=-1)
+    return torch.cat([
+        x1 * cos - x2 * sin,
+        x1 * sin + x2 * cos
+    ], dim=-1)
+
 
 
 # -------------------------
@@ -149,7 +172,9 @@ class GPTDecoder(nn.Module):
 
         x = self.ln_f(x)
         logits = self.lm_head(x)
-        return logits, new_kv
+        if kv_cache is not None:
+            return logits, new_kv
+        return logits
 
     @torch.no_grad()
     def generate(self, input_ids, max_new_tokens, temperature=1.0):

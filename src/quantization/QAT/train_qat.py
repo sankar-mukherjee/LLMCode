@@ -3,7 +3,7 @@ import torch.nn.functional as F
 import os
 from quant import replace_linear_with_quant
 
-from src.llms.llm_0 import GPTDecoder
+from llms.gpt_basic import GPTDecoder
 
 torch.manual_seed(1337)
 

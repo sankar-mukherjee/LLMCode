@@ -3,7 +3,7 @@ import bitsandbytes as bnb
 from deploy_quantized import deploy_qat_model
 
 # Assuming you have GPTDecoder available
-from src.llms.llm_0 import GPTDecoder
+from llms.gpt_basic import GPTDecoder
 
 
 def generate_text_quantized(model, context, decode_fn, max_new_tokens=400, temperature=0.8, device='cpu'):

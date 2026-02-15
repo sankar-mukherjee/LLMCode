@@ -15,6 +15,7 @@ sentencepiece==0.1.99
 pytube==15.0.0
 moviepy==1.0.3
 soundfile==0.12.1
+matplotlib
 # monotonic-align
 deepmultilingualpunctuation
 scipy==1.11.4

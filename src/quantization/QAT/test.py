@@ -1,7 +1,7 @@
 import time
 import torch
 
-from src.llms.llm_0 import GPTDecoder
+from llms.gpt_basic import GPTDecoder
 from src.quantization.QAT.quant import replace_linear_with_quant
 from src.quantization.quantization_basics.quantlinear import QuantLinear
 
