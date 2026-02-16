@@ -6,16 +6,29 @@ Educational repo with experiments around NN basics, GPT decoders, and quantizati
 
 Core educational modules for foundational deep learning concepts.
 
+Core scripts
+- `src/basic/train_0.py`: basic training loop scaffold.
+- `src/basic/custom_nn_module.py`: custom `nn.Module` patterns.
 - `src/basic/activations.py`: activation function experiments.
 - `src/basic/batchNorm.py`: batch normalization behavior and implementation notes.
-- `src/basic/custom_nn_module.py`: custom `nn.Module` patterns.
 - `src/basic/dropout.py`: dropout behavior experiments.
 - `src/basic/lora_layer.py`: simple LoRA-style layer adaptation example.
 - `src/basic/straight_through_estimator.py`: STE-based quantization-style gradient flow demo.
-- `src/basic/train_0.py`: basic training loop scaffold.
+
+Folder: `src/basic/cnn`
 - `src/basic/cnn/cnn.py`: CNN example implementation.
-- `src/basic/loss/loss.py`: loss function experiments.
+
+Folder: `src/basic/rnn`
 - `src/basic/rnn/rnn.py`: RNN/LSTM/GRU examples.
+
+Folder: `src/basic/loss`
+- `src/basic/loss/loss.py`: loss function experiments.
+
+Folder: `src/basic/linear_algebra`
+- `src/basic/linear_algebra/code_examples.py`: linear algebra examples used in ML context.
+
+Folder: `src/basic/ml`
+- `src/basic/ml/activations.py`: ML-focused activation function notes and examples.
 
 ## `src/llms`
 

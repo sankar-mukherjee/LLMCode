@@ -12,6 +12,16 @@ Small, focused learning modules for core neural network concepts.
 - `lora_layer.py`: simple LoRA-style low-rank adaptation layer.
 - `straight_through_estimator.py`: STE-based gradient flow example for quantization-style ops.
 
+## Linear algebra
+
+- `linear_algebra/code_examples.py`: linear algebra code examples for ML basics.
+
+## ML notes
+
+- `ml/activations.py`: activation-function-focused ML notes and code examples.
+
+![Activation Equations](ml/activation_eq.png)
+
 ## CNN
 
 - `cnn/cnn.py`: basic convolutional neural network example.
