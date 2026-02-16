@@ -2,6 +2,8 @@
 
 Educational repo with experiments around NN basics, GPT decoders, and quantization.
 
+![Repository Overview](repo.png)
+
 ## `src/basic`
 
 Core educational modules for foundational deep learning concepts.
