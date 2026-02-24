@@ -93,11 +93,11 @@ class BiRNN(nn.Module):
 
         # ---- forward pass ----
         for t in range(T):
-            hf = self.tanh(self.Wx_f(x[:, t]) + self.Wh_f(hf))
+            hf = self.tanh(self.Wx_f(x[:, t, :]) + self.Wh_f(hf))
 
         # ---- backward pass ----
         for t in reversed(range(T)):
-            hb = self.tanh(self.Wx_b(x[:, t]) + self.Wh_b(hb))
+            hb = self.tanh(self.Wx_b(x[:, t, :]) + self.Wh_b(hb))
 
         # concat both directions
         h = torch.cat([hf, hb], dim=-1)

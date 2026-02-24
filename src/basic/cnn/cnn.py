@@ -219,7 +219,7 @@ class MultiLayerCNN2D(nn.Module):
         # Calculate output size after all conv+pool layers
         size = input_size
         for _ in conv_channels:
-            size = (size + 2*padding - kernel_size + 1) // pool_size
+            size = (size + 2*padding - kernel_size) // pool_size + 1
 
         flattened = conv_channels[-1] * size * size
 

@@ -129,18 +129,19 @@ class GPTDecoder(nn.Module):
         return logits
 
     @torch.no_grad()
-    def generate(
-        self,
-        input_ids,
-        max_new_tokens,
-        temperature=1.0,
-    ):
+    def generate(self, input_ids, max_new_tokens, temperature=1.0, top_k=None):
         self.eval()
-
         for _ in range(max_new_tokens):
             input_cond = input_ids[:, -self.max_seq_len:]
             logits = self(input_cond)
             next_token_logits = logits[:, -1, :]
+
+            # Apply Top-K filtering
+            if top_k is not None:
+                # 1. Identify the value of the K-th largest logit
+                v, _ = torch.topk(next_token_logits, min(top_k, next_token_logits.size(-1)))
+                # 2. Mask out all logits smaller than the K-th largest value
+                next_token_logits[next_token_logits < v[:, [-1]]] = -float('Inf')
 
             if temperature == 0.0:
                 next_token = torch.argmax(next_token_logits, dim=-1, keepdim=True)
@@ -149,5 +150,5 @@ class GPTDecoder(nn.Module):
                 next_token = torch.multinomial(probs, 1)
 
             input_ids = torch.cat([input_ids, next_token], dim=1)
-
+            
         return input_ids
